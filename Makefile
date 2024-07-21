@@ -1,10 +1,8 @@
-KERNEL_SRC ?= /lib/modules/$(shell uname -r)/build
+#
+# Makefile for the Novatek NT36xxx touchscreen driver.
+#
 
-all:
-	$(MAKE) -C $(KERNEL_SRC) M=$(shell pwd) modules $(KBUILD_OPTIONS)
+# Each configuration option enables a list of files.
 
-modules_install:
-	$(MAKE) INSTALL_MOD_STRIP=1 -C $(KERNEL_SRC) M=$(shell pwd) modules_install
-
-clean:
-	$(MAKE) -C $(KERNEL_SRC) M=$(PWD) clean
+obj-$(CONFIG_TOUCHSCREEN_NT36xxx_HOSTDL_SPI) += nt36xxx.o nt36xxx_fw_update.o nt36xxx_ext_proc.o nt36xxx_mp_ctrlram_data.o nt36xxx_mp_ctrlram.o
+obj-$(CONFIG_SPI_XIAOMI_TP) += spi-xiaomi-tp.o
